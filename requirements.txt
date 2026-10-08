@@ -1,0 +1,16 @@
+# Core async and server dependencies
+websockets>=12.0
+aiohttp>=3.9.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
+pydantic>=2.6.0
+python-dotenv>=1.0.0
+
+# LLM streaming (OpenAI format compatible with OpenAI, Groq, Together, vLLM, DeepSeek)
+openai>=1.14.0
+
+# Deepgram SDK (Optional, pipeline includes direct raw WebSocket implementation)
+# deepgram-sdk>=3.0.0
+
+# ElevenLabs SDK (Optional, pipeline includes direct raw WebSocket implementation)
+# elevenlabs>=0.3.0

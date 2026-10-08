@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  voice-assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: realtime-voice-assistant:latest
+    container_name: voice_assistant_server
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - MOCK_APIS=true
+      - DEEPGRAM_API_KEY=${DEEPGRAM_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+      - ./static:/app/static
+    restart: unless-stopped
