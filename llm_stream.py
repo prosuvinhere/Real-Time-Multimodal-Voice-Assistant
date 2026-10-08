@@ -6,7 +6,6 @@ Yields speakable text chunks on-the-fly to minimize latency before feeding TTS.
 import asyncio
 import json
 import logging
-import time
 from typing import Any, AsyncGenerator, List, Optional
 
 try:
@@ -108,7 +107,7 @@ class StreamingLLMClient:
                                 latency_tracker.mark_llm_first_token()
 
                         full_response_text.append(token)
-                        
+
                         # Process token through clause chunker
                         new_chunks = chunker.process_token(token)
                         for clause in new_chunks:

@@ -6,7 +6,6 @@ and Phase 3 (timeouts, circuit breaker, barge-in, fallback audio).
 
 import asyncio
 import os
-import sys
 import time
 import unittest
 
@@ -23,7 +22,7 @@ class TestVoicePipeline(unittest.IsolatedAsyncioTestCase):
         """Test streaming sentence/clause splitting."""
         chunker = SentenceChunker(min_clause_chars=20)
         tokens = ["Hello", "there!", "How", "can", "I", "assist", "you", "today?", "Let's", "talk."]
-        
+
         chunks = []
         for token in tokens:
             chunks.extend(chunker.process_token(token + " "))

@@ -61,6 +61,10 @@ voice-replay = "replay_client:main"
 line-length = 100
 target-version = "py39"
 
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
+
 [tool.black]
 line-length = 100
 target-version = ['py39']

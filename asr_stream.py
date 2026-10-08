@@ -6,7 +6,6 @@ Supports Deepgram Live WebSocket streaming with endpointing, as well as offline 
 import asyncio
 import json
 import logging
-import time
 from typing import Any, AsyncGenerator, Callable, Optional
 
 try:
@@ -76,7 +75,7 @@ class DeepgramASRStream:
         async for msg in self.ws:
             if msg.type == aiohttp.WSMsgType.TEXT:
                 data = json.loads(msg.data)
-                
+
                 # Check for transcript alternatives
                 channel = data.get("channel", {})
                 alternatives = channel.get("alternatives", [])
@@ -96,7 +95,7 @@ class DeepgramASRStream:
                     if speech_final:
                         if latency_tracker:
                             latency_tracker.mark_speech_end()
-                        
+
                         full_transcript = " ".join(self._accumulated_transcript).strip()
                         self._accumulated_transcript = []
                         if full_transcript:
@@ -152,12 +151,10 @@ class MockASRStream:
         on_interim_transcript: Optional[Callable[[str], None]] = None
     ) -> AsyncGenerator[str, None]:
         """Simulate ASR endpointing upon receiving audio."""
-        silence_counter = 0
         while self.is_connected:
             try:
                 # Wait for audio chunks
-                chunk = await asyncio.wait_for(self.queue.get(), timeout=0.35)
-                silence_counter = 0
+                await asyncio.wait_for(self.queue.get(), timeout=0.35)
             except asyncio.TimeoutError:
                 # If audio was received and silence follows, simulate endpointing!
                 if self.audio_received_bytes > 3200:  # > 100ms of audio received

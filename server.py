@@ -9,7 +9,6 @@ import base64
 import hashlib
 import json
 import logging
-import os
 import struct
 from typing import Optional
 

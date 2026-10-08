@@ -4,7 +4,6 @@ Pure Python standard library (wave, math, struct) - no external dependencies req
 """
 
 import math
-import os
 import struct
 import wave
 from pathlib import Path
@@ -25,7 +24,7 @@ def create_sample_query_wav(filepath: str, duration_sec: float = 2.5, sample_rat
         t = float(i) / sample_rate
         # Voice pitch contour modulating between 120Hz and 220Hz
         pitch = 140.0 + 35.0 * math.sin(2.0 * math.pi * 1.5 * t)
-        
+
         # Formants (F1 ~ 500Hz, F2 ~ 1500Hz)
         formant1 = math.sin(2.0 * math.pi * 500.0 * t) * 0.4
         formant2 = math.sin(2.0 * math.pi * 1500.0 * t) * 0.2

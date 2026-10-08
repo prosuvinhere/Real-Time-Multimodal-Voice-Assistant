@@ -60,7 +60,7 @@ class TTSConfig:
     elevenlabs_voice_id: str = os.getenv("ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM")
     elevenlabs_model_id: str = os.getenv("ELEVENLABS_MODEL_ID", "eleven_turbo_v2_5")
     elevenlabs_output_format: str = os.getenv("ELEVENLABS_OUTPUT_FORMAT", "pcm_16000")
-    
+
     cartesia_api_key: str = field(default_factory=lambda: os.getenv("CARTESIA_API_KEY", ""))
     cartesia_voice_id: str = os.getenv("CARTESIA_VOICE_ID", "")
 
@@ -72,12 +72,12 @@ class AppConfig:
     port: int = int(os.getenv("PORT", "8000"))
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
     mock_apis: bool = os.getenv("MOCK_APIS", "true").lower() in ("true", "1", "yes")
-    
+
     fallback_audio_file: str = os.getenv(
         "FALLBACK_AUDIO_FILE",
         str(Path(__file__).parent / "static" / "fallback_trouble_connecting.wav")
     )
-    
+
     budgets: LatencyBudgets = field(default_factory=LatencyBudgets)
     timeouts: TimeoutConfig = field(default_factory=TimeoutConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)

@@ -9,7 +9,6 @@ import json
 import logging
 import math
 import struct
-import time
 from typing import Any, AsyncGenerator, Optional
 
 try:
@@ -48,7 +47,7 @@ class ElevenLabsTTSStream:
             raise ImportError("aiohttp is required for live ElevenLabs streaming. Run: pip install aiohttp")
         if not self.api_key:
             raise ValueError("ELEVENLABS_API_KEY is not set.")
-        
+
         self.session = aiohttp.ClientSession()
         headers = {"xi-api-key": self.api_key}
         self.ws = await self.session.ws_connect(self.endpoint, headers=headers)

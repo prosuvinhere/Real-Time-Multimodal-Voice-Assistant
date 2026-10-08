@@ -3,10 +3,9 @@ Phase 2: Latency Budget & Tracking Instrumentation.
 Measures high-precision timestamps across ASR, LLM, TTS, and Network layers.
 """
 
-import json
 import logging
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 from config import LatencyBudgets, config
@@ -18,7 +17,7 @@ logger = logging.getLogger("latency_tracker")
 class TurnLatencyRecord:
     """Detailed breakdown of latency for a single voice turn."""
     request_id: str
-    
+
     # Raw Timestamps (time.perf_counter)
     t_speech_end: Optional[float] = None
     t_asr_final: Optional[float] = None

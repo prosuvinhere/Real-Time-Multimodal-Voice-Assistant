@@ -5,7 +5,6 @@ Synthesizes and caches fallback PCM audio without requiring third-party tools.
 """
 
 import asyncio
-import io
 import math
 import os
 import struct
@@ -25,7 +24,7 @@ def generate_synthesized_chime_wav(filename: str, duration_sec: float = 2.0, sam
     path.parent.mkdir(parents=True, exist_ok=True)
 
     num_samples = int(sample_rate * duration_sec)
-    
+
     # Generate multi-frequency warm notification chord (C-maj: 523.25Hz, 659.25Hz, 783.99Hz)
     frequencies = [523.25, 659.25, 783.99]
     amplitude = 10000.0  # Safe amplitude for 16-bit signed PCM (max 32767)
@@ -35,11 +34,11 @@ def generate_synthesized_chime_wav(filename: str, duration_sec: float = 2.0, sam
         t = float(i) / sample_rate
         # Exponential decay envelope for gentle audio chime
         envelope = math.exp(-2.5 * (t % 1.0))
-        
+
         sample_val = 0.0
         for freq in frequencies:
             sample_val += math.sin(2.0 * math.pi * freq * t)
-        
+
         sample_val = (sample_val / len(frequencies)) * amplitude * envelope
         int_sample = max(-32768, min(32767, int(sample_val)))
         raw_frames.extend(struct.pack('<h', int_sample))

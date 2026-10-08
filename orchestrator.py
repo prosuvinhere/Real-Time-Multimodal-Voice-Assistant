@@ -11,7 +11,7 @@ from typing import AsyncGenerator, Callable, Coroutine, Optional
 
 from asr_stream import DeepgramASRStream, MockASRStream
 from config import config
-from fallback_audio import FallbackAudioProvider, fallback_provider
+from fallback_audio import fallback_provider
 from llm_stream import MockLLMStream, StreamingLLMClient
 from metrics import LatencyTracker
 from tts_stream import ElevenLabsTTSStream, MockTTSStream
@@ -80,7 +80,7 @@ class PipelineOrchestrator:
                     continue
 
                 logger.info(f"User Final Transcript: '{transcript}'")
-                
+
                 # Interrupt / Barge-in: cancel any previous assistant response in-flight
                 await self.handle_barge_in()
 
@@ -169,7 +169,7 @@ class PipelineOrchestrator:
 
         finally:
             self.is_assistant_speaking = False
-            
+
             # Phase 2: Emit Latency Breakdown and Telemetry
             tracker.print_summary()
             if self.send_telemetry_to_client:
@@ -234,7 +234,7 @@ class PipelineOrchestrator:
         """Stream pre-recorded/synthesized fallback audio when services fail or hang."""
         tracker.mark_fallback()
         logger.info(f"📢 Streaming pre-recorded fallback audio to client. Reason: {reason}")
-        
+
         is_first_chunk = True
         total_fallback_bytes = 0
 

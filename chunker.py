@@ -4,7 +4,7 @@ Splits streaming LLM tokens into phonetically coherent clauses for low-latency T
 """
 
 import re
-from typing import AsyncGenerator, Generator, List
+from typing import List
 
 
 class SentenceChunker:
